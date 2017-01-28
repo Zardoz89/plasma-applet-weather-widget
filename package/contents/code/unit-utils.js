@@ -10,12 +10,15 @@ function toFahrenheit(celsia) {
     return celsia * (9/5) + 32
 }
 
-function getTemperatureNumber(temperatureStr, temperatureType) {
-    var fl = parseFloat(temperatureStr)
+function getTemperature(temperature, temperatureType) {
     if (temperatureType === TemperatureType.FAHRENHEIT) {
-        fl = toFahrenheit(fl)
+        return toFahrenheit(temperature)
     }
-    return Math.round(fl)
+    return temperature
+}
+
+function getTemperatureNumber(temperatureStr, temperatureType) {
+    return Math.round(getTemperature(parseFloat(temperatureStr), temperatureType))
 }
 
 function kelvinToCelsia(kelvin) {
