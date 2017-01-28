@@ -541,7 +541,7 @@ Item {
             
             // Temperature Cursor
             Item {  
-                property color cursorColor: pathInterpolator.y <= meteogramCanvasWarmTemp.height ? "red" : "blue"
+                property color cursorColor: pathInterpolator.y <= meteogramCanvasWarmTemp.height ? temperatureWarmColor : temperatureColdColor
                 
                 id: cursor
                 anchors.fill: parent
@@ -571,13 +571,12 @@ Item {
                 }
                 
                 Rectangle {
-                    id: dot
-                    color: cursor.cursorColor
-                    width: 6
-                    height: width
-                    radius: width / 2.0
-                    x: pathInterpolator.x - width / 2.0
-                    y: pathInterpolator.y - width / 2.0
+                    id: baseline
+                    color: "black"
+                    width: parent.width
+                    height: 1
+                    x: 0
+                    y: meteogramCanvasWarmTemp.height
                 }
                 
                 Rectangle {
@@ -588,16 +587,17 @@ Item {
                     x: pathInterpolator.x - width / 2.0
                     y: pathInterpolator.y <= meteogramCanvasWarmTemp.height ? pathInterpolator.y : meteogramCanvasWarmTemp.height
                 }
-                
-                Rectangle {
-                    id: baseline
-                    color: "black"
-                    width: parent.width
-                    height: 1
-                    x: 0
-                    y: meteogramCanvasWarmTemp.height
-                }
 
+                Rectangle {
+                    id: dot
+                    color: cursor.cursorColor
+                    width: 6
+                    height: width
+                    radius: width / 2.0
+                    x: pathInterpolator.x - width / 2.0
+                    y: pathInterpolator.y - width / 2.0
+                }
+                
                 Text {
                     readonly property point offset: Qt.point(32, 16)
                     
