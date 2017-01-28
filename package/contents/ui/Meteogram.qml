@@ -538,6 +538,103 @@ Item {
                     }
                 }
             }
+            
+            // Temperature Cursor
+            Item {  
+                property color cursorColor: pathInterpolator.y <= meteogramCanvasWarmTemp.height ? "red" : "blue"
+                
+                id: cursor
+                anchors.fill: parent
+                opacity: 0.0
+                
+                Behavior on opacity {
+                    PropertyAnimation { duration: 200; easing.type: Easing.InOutQuad }
+                }
+                
+                Behavior on cursorColor {
+                    PropertyAnimation { duration: 200; easing.type: Easing.InOutQuad }
+                }
+                
+                Connections {
+                    target: pathInterpolator
+                    onProgressChanged: cursor.opacity = 1.0
+                }
+                
+                Timer {
+                    id: hideTimer
+                    interval: 4000
+                    running: !cursorArea.pressed
+                    
+                    onTriggered: {
+                        cursor.opacity = 0.0
+                    }
+                }
+                
+                Rectangle {
+                    id: dot
+                    color: cursor.cursorColor
+                    width: 6
+                    height: width
+                    radius: width / 2.0
+                    x: pathInterpolator.x - width / 2.0
+                    y: pathInterpolator.y - width / 2.0
+                }
+                
+                Rectangle {
+                    id: line
+                    color: cursor.cursorColor
+                    width: 1
+                    height: Math.abs(meteogramCanvasWarmTemp.height - pathInterpolator.y)
+                    x: pathInterpolator.x - width / 2.0
+                    y: pathInterpolator.y <= meteogramCanvasWarmTemp.height ? pathInterpolator.y : meteogramCanvasWarmTemp.height
+                }
+                
+                Rectangle {
+                    id: baseline
+                    color: "black"
+                    width: parent.width
+                    height: 1
+                    x: 0
+                    y: meteogramCanvasWarmTemp.height
+                }
+
+                Text {
+                    readonly property point offset: Qt.point(32, 16)
+                    
+                    id: temperatureText
+                    color: "white"
+                    text: UnitUtils.getTemperature(-10.0*((pathInterpolator.y / temperatureMultiplierY) - temperatureSizeY + temperatureAdditiveY)/10.0, temperatureType).toFixed(1) + UnitUtils.getTemperatureEnding(temperatureType)
+                    
+                    x: Math.min(pathInterpolator.x - width / 2.0 + offset.x, parent.width - width)
+                    y: pathInterpolator.y - height / 2.0 + offset.y  
+                    
+                    Rectangle {
+                        id: textBackground
+                        anchors.centerIn: parent
+                        color: "black"
+                        opacity: 0.6
+                        radius: 2
+                        z: -1
+                        
+                        width: parent.implicitWidth + 8
+                        height: parent.implicitHeight + 8
+                    }
+                }
+                
+                PathInterpolator {
+                    id: pathInterpolator
+                    path: temperaturePathWarm
+                }
+                
+                MouseArea {
+                    id: cursorArea
+                    anchors.fill: parent
+                    acceptedButtons: Qt.LeftButton
+                    
+                    onPositionChanged: pathInterpolator.progress = mouse.x / width
+                    onPressed: pathInterpolator.progress = mouse.x / width
+                }
+            }
         }
     }
     

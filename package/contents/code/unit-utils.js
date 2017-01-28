@@ -3,45 +3,26 @@
  */
 var TemperatureType = {
     CELSIUS: 0,
-    FAHRENHEIT: 1,
-    KELVIN: 2
+    FAHRENHEIT: 1
 }
 
 function toFahrenheit(celsia) {
     return celsia * (9/5) + 32
 }
 
-function toKelvin(celsia) {
-    return celsia + 273.15
-}
-
-function getTemperatureNumberExt(temperatureStr, temperatureType) {
-    return getTemperatureNumber(temperatureStr, temperatureType) + (temperatureType === TemperatureType.CELSIUS || temperatureType === TemperatureType.FAHRENHEIT ? '°' : '');
+function getTemperature(temperature, temperatureType) {
+    if (temperatureType === TemperatureType.FAHRENHEIT) {
+        return toFahrenheit(temperature)
+    }
+    return temperature
 }
 
 function getTemperatureNumber(temperatureStr, temperatureType) {
-    var fl = parseFloat(temperatureStr)
-    if (temperatureType === TemperatureType.FAHRENHEIT) {
-        fl = toFahrenheit(fl)
-    } else if (temperatureType === TemperatureType.KELVIN) {
-        fl = toKelvin(fl)
-    }
-    return Math.round(fl)
-}
-
-function kelvinToCelsia(kelvin) {
-    return kelvin - 273.15
+    return Math.round(getTemperature(parseFloat(temperatureStr), temperatureType))
 }
 
 function getTemperatureEnding(temperatureType) {
-    if (temperatureType === TemperatureType.CELSIUS) {
-        return i18n('°C')
-    } else if (temperatureType === TemperatureType.FAHRENHEIT) {
-        return i18n('°F')
-    } else if (temperatureType === TemperatureType.KELVIN) {
-        return i18n('K')
-    }
-    return ''
+    return temperatureType === TemperatureType.FAHRENHEIT ? i18n('°F') : i18n('°C')
 }
 
 /*
