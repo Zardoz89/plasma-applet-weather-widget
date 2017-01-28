@@ -591,7 +591,7 @@ Item {
                 Rectangle {
                     id: dot
                     color: cursor.cursorColor
-                    width: 6
+                    width: 8
                     height: width
                     radius: width / 2.0
                     x: pathInterpolator.x - width / 2.0
@@ -599,7 +599,7 @@ Item {
                 }
                 
                 PlasmaComponents.Label {
-                    readonly property point offset: Qt.point(32, 16)
+                    readonly property point offset: Qt.point(28, -28)
                     
                     id: temperatureText
                     color: "white"
