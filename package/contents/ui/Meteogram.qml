@@ -598,7 +598,7 @@ Item {
                     y: pathInterpolator.y - width / 2.0
                 }
                 
-                Text {
+                PlasmaComponents.Label {
                     readonly property point offset: Qt.point(32, 16)
                     
                     id: temperatureText
