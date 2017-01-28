@@ -14,10 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http: //www.gnu.org/licenses/>.
  */
+
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
+
 import org.kde.plasma.components 2.0 as PlasmaComponents
+
 import "../code/unit-utils.js" as UnitUtils
 import "../code/icons.js" as IconTools
 
@@ -322,7 +325,7 @@ Item {
             anchors.fill: parent
             anchors.topMargin: -graph.anchors.topMargin
             anchors.bottomMargin: graph.anchors.topMargin
-            anchors.leftMargin: -(hourItemWidth/2)
+            anchors.leftMargin: -(hourItemWidth / 2)
             orientation: ListView.Horizontal
 
             interactive: false
@@ -618,7 +621,7 @@ Item {
 
                     id: temperatureText
                     color: "white"
-                    text: UnitUtils.getTemperature(-10.0*((pathInterpolator.y / temperatureMultiplierY) - temperatureSizeY + temperatureAdditiveY)/10.0, temperatureType).toFixed(1) + UnitUtils.getTemperatureEnding(temperatureType)
+                    text: UnitUtils.getTemperature(-10.0 * ((pathInterpolator.y / temperatureMultiplierY) - temperatureSizeY + temperatureAdditiveY) / 10.0, temperatureType).toFixed(1) + UnitUtils.getTemperatureEnding(temperatureType)
 
                     x: Math.min(pathInterpolator.x - width / 2.0 + offset.x, parent.width - width)
                     y: pathInterpolator.y - height / 2.0 + offset.y
