@@ -15,7 +15,10 @@ function getTemperature(temperature, temperatureType) {
 }
 
 function getTemperatureNumberExt(temperatureStr, temperatureType) {
-    return getTemperatureNumber(temperatureStr, temperatureType) + (temperatureType === TemperatureType.CELSIUS || temperatureType === TemperatureType.FAHRENHEIT ? '°' : '');
+    return (
+        getTemperatureNumber(temperatureStr, temperatureType) +
+        (temperatureType === TemperatureType.CELSIUS || temperatureType === TemperatureType.FAHRENHEIT ? "°" : "")
+    )
 }
 
 function getTemperatureNumber(temperatureStr, temperatureType) {
