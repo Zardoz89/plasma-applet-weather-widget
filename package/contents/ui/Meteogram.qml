@@ -58,6 +58,7 @@ Item {
     property bool textColorLight: ((theme.textColor.r + theme.textColor.g + theme.textColor.b) / 3) > 0.5
     property color gridColor: textColorLight ? Qt.tint(theme.textColor, '#80000000') : Qt.tint(theme.textColor, '#80FFFFFF')
     property color gridColorHighlight: textColorLight ? Qt.tint(theme.textColor, '#50000000') : Qt.tint(theme.textColor, '#50FFFFFF')
+    property color gridCursorColor: textColorLight ? "white" : "black"
     
     property color pressureColor: textColorLight ? Qt.rgba(0.3, 1, 0.3, 1) : Qt.rgba(0.0, 0.6, 0.0, 1)
     property color temperatureWarmColor: textColorLight ? Qt.rgba(1, 0.3, 0.3, 1) : Qt.rgba(1, 0.0, 0.0, 1)
@@ -545,6 +546,7 @@ Item {
                 
                 id: cursor
                 anchors.fill: parent
+                anchors.bottomMargin: -topBottomCanvasMargin
                 opacity: 0.0
                 
                 Behavior on opacity {
@@ -562,7 +564,7 @@ Item {
                 
                 Timer {
                     id: hideTimer
-                    interval: 4000
+                    interval: 3000
                     running: !cursorArea.pressed
                     
                     onTriggered: {
@@ -572,7 +574,7 @@ Item {
                 
                 Rectangle {
                     id: baseline
-                    color: "black"
+                    color: gridCursorColor
                     width: parent.width
                     height: 1
                     x: 0
@@ -580,7 +582,16 @@ Item {
                 }
                 
                 Rectangle {
-                    id: line
+                    id: cursorLine
+                    color: gridCursorColor
+                    width: 1
+                    x: pathInterpolator.x - width / 2.0
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                }
+                
+                Rectangle {
+                    id: temperatureLine
                     color: cursor.cursorColor
                     width: 1
                     height: Math.abs(meteogramCanvasWarmTemp.height - pathInterpolator.y)
@@ -613,7 +624,7 @@ Item {
                         anchors.centerIn: parent
                         color: "black"
                         opacity: 0.6
-                        radius: 2
+                        radius: 3
                         z: -1
                         
                         width: parent.implicitWidth + 8
