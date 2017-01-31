@@ -582,7 +582,7 @@ Item {
                 }
                 
                 Rectangle {
-                    id: cursorLine
+                    id: timeLine
                     color: gridCursorColor
                     width: 1
                     x: pathInterpolator.x - width / 2.0
@@ -590,13 +590,17 @@ Item {
                     anchors.top: parent.top
                 }
                 
-                Rectangle {
-                    id: temperatureLine
-                    color: cursor.cursorColor
-                    width: 1
-                    height: Math.abs(meteogramCanvasWarmTemp.height - pathInterpolator.y)
-                    x: pathInterpolator.x - width / 2.0
-                    y: pathInterpolator.y <= meteogramCanvasWarmTemp.height ? pathInterpolator.y : meteogramCanvasWarmTemp.height
+                Item {
+                    anchors.fill: parent
+                    clip: true
+                    Rectangle {
+                        id: temperatureLine
+                        color: cursor.cursorColor
+                        width: 1
+                        height: Math.abs(meteogramCanvasWarmTemp.height - pathInterpolator.y)
+                        x: pathInterpolator.x - width / 2.0
+                        y: pathInterpolator.y <= meteogramCanvasWarmTemp.height ? pathInterpolator.y : meteogramCanvasWarmTemp.height
+                    }
                 }
 
                 Rectangle {
