@@ -72,7 +72,7 @@ Item {
     }
     
     
-    property double fontPixelSize: partHeight * (layoutType === 2 ? 0.7 : 0.7)
+    property double fontPixelSize: partHeight * (layoutType === 2 ? 0.7 : 0.83)
     
     property string iconNameStr:    actualWeatherModel.count > 0 ? IconTools.getIconCode(actualWeatherModel.get(0).iconName, currentProvider.providerId, getPartOfDayIndex()) : ''
     property string temperatureStr: actualWeatherModel.count > 0 ? UnitUtils.getTemperatureNumberExt(actualWeatherModel.get(0).temperature, temperatureType) : ''
