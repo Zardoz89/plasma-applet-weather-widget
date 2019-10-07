@@ -39,6 +39,9 @@
         <entry name="inTrayActiveTimeoutSec" type="Int">
             <default>3600</default>
         </entry>
+        <entry name="fontSize" type="int">
+            <default>100</default>
+        </entry>
     </group>
     
     <group name="Units">

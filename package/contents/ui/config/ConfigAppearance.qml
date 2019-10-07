@@ -7,6 +7,7 @@ Item {
     property alias cfg_renderMeteogram: renderMeteogram.checked
     property int cfg_layoutType
     property alias cfg_inTrayActiveTimeoutSec: inTrayActiveTimeoutSec.value
+    property alias cfg_fontSize: fontSizeSpin.value
 
     onCfg_layoutTypeChanged: {
         switch (cfg_layoutType) {
@@ -118,6 +119,26 @@ Item {
             Layout.rowSpan: 3
             Layout.preferredWidth: 250
             wrapMode: Text.WordWrap
+        }
+
+        Label {
+            text: i18n("Others")
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+            font.bold: true
+            Layout.columnSpan: 3
+        }        
+        Label {
+            text: i18n('Widget Font size:')
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+        }
+
+        SpinBox {
+            id: fontSizeSpin
+            minimumValue: 10
+            maximumValue: 200
+            decimals: 0
+            stepSize: 5
+            suffix: ' %'
         }
     }
     

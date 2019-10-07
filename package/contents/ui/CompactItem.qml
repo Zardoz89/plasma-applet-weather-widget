@@ -18,6 +18,7 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.plasmoid 2.0
 import "../code/icons.js" as IconTools
 import "../code/unit-utils.js" as UnitUtils
 
@@ -28,6 +29,8 @@ Item {
     
     property bool inTray
     property int layoutType: inTray ? 2 : main.layoutType
+
+    readonly property int fontSize: plasmoid.configuration.fontSize
     
     property double parentWidth: parent.width
     property double parentHeight: parent.height
@@ -72,7 +75,7 @@ Item {
     }
     
     
-    property double fontPixelSize: partHeight * (layoutType === 2 ? 0.7 : 0.7)
+    property double fontPixelSize: partHeight * (layoutType === 2 ? 0.7 : 0.7) * fontSize / 100
     
     property string iconNameStr:    actualWeatherModel.count > 0 ? IconTools.getIconCode(actualWeatherModel.get(0).iconName, currentProvider.providerId, getPartOfDayIndex()) : ''
     property string temperatureStr: actualWeatherModel.count > 0 ? UnitUtils.getTemperatureNumberExt(actualWeatherModel.get(0).temperature, temperatureType) : ''
