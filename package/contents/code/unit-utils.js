@@ -14,14 +14,14 @@ function getTemperature(temperature, temperatureType) {
   return temperature;
 }
 
+function getTemperatureNumberExt(temperatureStr, temperatureType) {
+    return getTemperatureNumber(temperatureStr, temperatureType) + (temperatureType === TemperatureType.CELSIUS || temperatureType === TemperatureType.FAHRENHEIT ? '°' : '');
+}
+
 function getTemperatureNumber(temperatureStr, temperatureType) {
   return Math.round(
     getTemperature(parseFloat(temperatureStr), temperatureType)
   );
-}
-
-function kelvinToCelsia(kelvin) {
-  return kelvin - 273.15;
 }
 
 function getTemperatureEnding(temperatureType) {
