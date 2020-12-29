@@ -80,8 +80,7 @@ function getWindSpeedNumber(mps, windSpeedType) {
 
 function getWindSpeedText(mps, windSpeedType) {
   return (
-    getWindSpeedNumber(mps, windSpeedType) +
-    " " +
+    getWindSpeedNumber(mps, windSpeedType) + " " +
     getWindSpeedEnding(windSpeedType)
   );
 }
