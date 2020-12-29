@@ -1,115 +1,124 @@
 /*
  * TEMPERATURE
  */
-var TemperatureType = {CELSIUS : 0, FAHRENHEIT : 1}
+var TemperatureType = { CELSIUS: 0, FAHRENHEIT: 1 };
 
-function toFahrenheit(celsia) { return celsia * (9 / 5) + 32 }
+function toFahrenheit(celsia) {
+  return celsia * (9 / 5) + 32;
+}
 
 function getTemperature(temperature, temperatureType) {
   if (temperatureType === TemperatureType.FAHRENHEIT) {
-    return toFahrenheit(temperature)
+    return toFahrenheit(temperature);
   }
-  return temperature
+  return temperature;
 }
 
 function getTemperatureNumber(temperatureStr, temperatureType) {
-  return Math.round(getTemperature(parseFloat(temperatureStr), temperatureType))
+  return Math.round(
+    getTemperature(parseFloat(temperatureStr), temperatureType)
+  );
 }
 
-function kelvinToCelsia(kelvin) { return kelvin - 273.15 }
+function kelvinToCelsia(kelvin) {
+  return kelvin - 273.15;
+}
 
 function getTemperatureEnding(temperatureType) {
-  return temperatureType === TemperatureType.FAHRENHEIT ? i18n('°F')
-                                                        : i18n('°C')
+  return temperatureType === TemperatureType.FAHRENHEIT
+    ? i18n("°F")
+    : i18n("°C");
 }
 
 /*
  * PRESSURE
  */
-var PressureType =
-    {HPA : 0, INHG : 1, MMHG : 2}
+var PressureType = { HPA: 0, INHG: 1, MMHG: 2 };
 
 function getPressureNumber(hpa, pressureType) {
   if (pressureType === PressureType.INHG) {
-    return Math.round(hpa * 0.0295299830714 * 10) / 10
+    return Math.round(hpa * 0.0295299830714 * 10) / 10;
   }
   if (pressureType === PressureType.MMHG) {
-    return Math.round(hpa * 0.750061683)
+    return Math.round(hpa * 0.750061683);
   }
-  return hpa
+  return hpa;
 }
 
 function getPressureText(hpa, pressureType) {
-  return getPressureNumber(hpa, pressureType) + ' ' +
-         getPressureEnding(pressureType)
+  return (
+    getPressureNumber(hpa, pressureType) + " " + getPressureEnding(pressureType)
+  );
 }
 
 function getPressureEnding(pressureType) {
   if (pressureType === PressureType.INHG) {
-    return i18n('inHg')
+    return i18n("inHg");
   }
   if (pressureType === PressureType.MMHG) {
-    return i18n('mmHg')
+    return i18n("mmHg");
   }
-  return i18n('hPa')
+  return i18n("hPa");
 }
 
 /*
  * WIND SPEED
  */
-var WindSpeedType =
-    {MPS : 0, MPH : 1, KMH : 2}
+var WindSpeedType = { MPS: 0, MPH: 1, KMH: 2 };
 
 function getWindSpeedNumber(mps, windSpeedType) {
   if (windSpeedType === WindSpeedType.MPH) {
-    return Math.round(mps * 2.2369362920544 * 10) / 10
+    return Math.round(mps * 2.2369362920544 * 10) / 10;
   } else if (windSpeedType === WindSpeedType.KMH) {
-    return Math.round(mps * 3.6 * 10) / 10
+    return Math.round(mps * 3.6 * 10) / 10;
   }
-  return mps
+  return mps;
 }
 
 function getWindSpeedText(mps, windSpeedType) {
-  return getWindSpeedNumber(mps, windSpeedType) + ' ' +
-         getWindSpeedEnding(windSpeedType)
+  return (
+    getWindSpeedNumber(mps, windSpeedType) +
+    " " +
+    getWindSpeedEnding(windSpeedType)
+  );
 }
 
 function getWindSpeedEnding(windSpeedType) {
   if (windSpeedType === WindSpeedType.MPH) {
-    return i18n('mph')
+    return i18n("mph");
   } else if (windSpeedType === WindSpeedType.KMH) {
-    return i18n('km/h')
+    return i18n("km/h");
   }
-  return i18n('m/s')
+  return i18n("m/s");
 }
 
 function getHourText(hourNumber, twelveHourClockEnabled) {
-  var result = hourNumber
+  var result = hourNumber;
   if (twelveHourClockEnabled) {
     if (hourNumber === 0) {
-      result = 12
+      result = 12;
     } else {
-      result = hourNumber > 12 ? hourNumber - 12 : hourNumber
+      result = hourNumber > 12 ? hourNumber - 12 : hourNumber;
     }
   }
-  return result < 10 ? '0' + result : result
+  return result < 10 ? "0" + result : result;
 }
 
 function getAmOrPm(hourNumber) {
   if (hourNumber === 0) {
-    return 'AM'
+    return "AM";
   }
-  return hourNumber > 11 ? 'PM' : 'AM'
+  return hourNumber > 11 ? "PM" : "AM";
 }
 
 /*
  * TIMEZONE
  */
-var TimezoneType = {USER_LOCAL_TIME : 0, UTC : 1}
+var TimezoneType = { USER_LOCAL_TIME: 0, UTC: 1 };
 
 function convertDate(date, timezoneType) {
   if (timezoneType === TimezoneType.UTC) {
-    return new Date(date.getTime() + (date.getTimezoneOffset() * 60000))
+    return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
   }
-  return date
+  return date;
 }
