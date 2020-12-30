@@ -3,10 +3,11 @@ import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 
 Item {
-    
+
     property alias cfg_renderMeteogram: renderMeteogram.checked
     property int cfg_layoutType
     property alias cfg_inTrayActiveTimeoutSec: inTrayActiveTimeoutSec.value
+    property alias cfg_fontSize: fontSizeSpin.value
 
     onCfg_layoutTypeChanged: {
         switch (cfg_layoutType) {
@@ -22,32 +23,32 @@ Item {
         default:
         }
     }
-    
+
     Component.onCompleted: {
         cfg_layoutTypeChanged()
     }
-    
+
     ExclusiveGroup {
         id: layoutTypeGroup
     }
-    
+
     GridLayout {
         anchors.left: parent.left
         anchors.right: parent.right
         columns: 3
-        
+
         CheckBox {
             id: renderMeteogram
             text: i18n("Render meteogram for yr.no")
             Layout.columnSpan: 2
         }
-        
+
         Item {
             width: 2
             height: 10
             Layout.columnSpan: 3
         }
-        
+
         Label {
             text: i18n("Layout")
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -87,14 +88,14 @@ Item {
             text: i18n("Compact")
             onCheckedChanged: if (checked) cfg_layoutType = 2;
         }
-        
+
         Item {
             width: 2
             height: 20
             Layout.columnSpan: 3
         }
-        
-        
+
+
         Label {
             text: i18n("In-Tray Settings")
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -119,6 +120,26 @@ Item {
             Layout.preferredWidth: 250
             wrapMode: Text.WordWrap
         }
+
+        Label {
+            text: i18n("Others")
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+            font.bold: true
+            Layout.columnSpan: 3
+        }
+        Label {
+            text: i18n('Widget Font size:')
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+        }
+
+        SpinBox {
+            id: fontSizeSpin
+            minimumValue: 10
+            maximumValue: 200
+            decimals: 0
+            stepSize: 5
+            suffix: ' %'
+        }
     }
-    
+
 }
