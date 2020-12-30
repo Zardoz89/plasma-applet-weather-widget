@@ -21,20 +21,20 @@ function getLastReloadedTimeText(lastReloaded) {
 
     var mins = reloadedAgoMs / 60000
     if (mins <= 180) {
-        return Math.round(mins) + 'm'
+        return Math.round(mins) + "m"
     }
 
     var hours = mins / 60
     if (hours <= 48) {
-        return Math.round(hours) + 'h'
+        return Math.round(hours) + "h"
     }
 
     var days = hours / 24
     if (days <= 14) {
-        return Math.round(days) + 'd'
+        return Math.round(days) + "d"
     }
 
-    return 'long'
+    return "long"
 }
 
 function scheduleDataReload() {
@@ -55,7 +55,7 @@ function getPlasmoidStatus(lastReloaded, inTrayActiveTimeoutSec) {
         return PlasmaCore.Types.NeedsAttentionStatus
     } else {
         var reloadedAgoMs = getReloadedAgoMs(lastReloaded)
-        if (reloadedAgoMs < inTrayActiveTimeoutSec*1000) {
+        if (reloadedAgoMs < inTrayActiveTimeoutSec * 1000) {
             return PlasmaCore.Types.ActiveStatus
         } else {
             return PlasmaCore.Types.PassiveStatus
@@ -64,11 +64,15 @@ function getPlasmoidStatus(lastReloaded, inTrayActiveTimeoutSec) {
 }
 
 function generateCacheKey(placeIdentifier) {
-    return 'cache_' + Qt.md5(placeIdentifier)
+    return "cache_" + Qt.md5(placeIdentifier)
 }
 
 function isXmlStringValid(xmlString) {
-    return xmlString.indexOf('<?xml ') === 0 || xmlString.indexOf('<weatherdata>') === 0 || xmlString.indexOf('<current>') === 0
+    return (
+        xmlString.indexOf("<?xml ") === 0 ||
+        xmlString.indexOf("<weatherdata>") === 0 ||
+        xmlString.indexOf("<current>") === 0
+    )
 }
 
 function fetchXmlFromInternet(getUrl, successCallback, failureCallback) {
@@ -79,31 +83,31 @@ function fetchXmlFromInternet(getUrl, successCallback, failureCallback) {
         }
 
         if (xhr.status !== 200) {
-            dbgprint('ERROR - status: ' + xhr.status)
-            dbgprint('ERROR - responseText: ' + xhr.responseText)
+            dbgprint("ERROR - status: " + xhr.status)
+            dbgprint("ERROR - responseText: " + xhr.responseText)
             failureCallback()
             return
         }
 
         // success
-        dbgprint('successfully loaded from the internet')
-        dbgprint('successfully of url-call: ' + getUrl)
-//         dbgprint('responseText: ' + xhr.responseText)
+        dbgprint("successfully loaded from the internet")
+        dbgprint("successfully of url-call: " + getUrl)
+        //         dbgprint('responseText: ' + xhr.responseText)
 
-        var xmlString = xhr.responseText;
+        var xmlString = xhr.responseText
         if (!DataLoader.isXmlStringValid(xmlString)) {
-            dbgprint('incomming xmlString is not valid: ' + xmlString)
+            dbgprint("incomming xmlString is not valid: " + xmlString)
             return
         }
-        dbgprint('incomming text seems to be valid')
+        dbgprint("incomming text seems to be valid")
 
         successCallback(xmlString)
     }
-    dbgprint('GET url opening: ' + getUrl)
-    xhr.open('GET', getUrl)
-    dbgprint('GET url sending: ' + getUrl)
+    dbgprint("GET url opening: " + getUrl)
+    xhr.open("GET", getUrl)
+    dbgprint("GET url sending: " + getUrl)
     xhr.send()
 
-    dbgprint('GET called for url: ' + getUrl)
+    dbgprint("GET called for url: " + getUrl)
     return xhr
 }
